@@ -1,0 +1,3 @@
+rootProject.name = 'DiceStats'
+
+include ':app'
