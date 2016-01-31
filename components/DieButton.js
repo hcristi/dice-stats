@@ -14,7 +14,7 @@ class DieButton extends Component{
 
 	render() {
 		return (
-			<TouchableHighlight onPress={() => this.props.onPress(this.props.number)} >
+			<TouchableHighlight onPress={() => this.props.onPress(this.props.number, this.props.index)} >
 				<Image source={this.getImg()} style={styles.diceScrollView_die}/>
 			</TouchableHighlight>
 			);

@@ -29,10 +29,11 @@ class UserActions extends Component{
 					<Text>Current Roll:</Text>
 					<DiceList 
 	        			items={this.state.currentRoll} 
+	        			onDiePress={this._removeDie.bind(this)}
 	        			updatable={true}
 	        				>
 	   				</DiceList>
-	   				<TouchableHighlight  
+	   				<TouchableHighlight
 						style={[styles.action, styles.actionSuccess]}
 						onPress={this._acceptRoll.bind(this)}>
 						<Text style={styles.actionText}>
@@ -54,7 +55,7 @@ class UserActions extends Component{
 					style={[styles.action, styles.actionSuccess]}
 					onPress={this._newRoll.bind(this)}>
 					<Text style={styles.actionText}>
-						New Roll
+						New Roll 
 					</Text>
 				</TouchableHighlight>
 			</View>
@@ -74,8 +75,16 @@ class UserActions extends Component{
 		});
 	}
 
+    _removeDie(itemPressed, indexOfItem){
+        this.state.currentRoll.splice(indexOfItem, 1);
+        this.setState({
+			currentRoll: this.state.currentRoll
+		});
+    }
+
 	_acceptRoll() {
-		this.props.pushRoll(this.state.currentRoll);
+        if(this.state.currentRoll.length > 0)
+		  this.props.pushRoll(this.state.currentRoll);
 
 		this.setState({
 			newRoll: false,

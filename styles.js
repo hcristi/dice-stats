@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     borderColor: 'blue'
   },
   diceScrollView:{
+    flexDirection: 'row'
   },
   diceScrollView_die: {
     height: 50,
@@ -34,12 +35,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 
-  separatorV:{
-    width: 10,
-    borderWidth: 1,
-    backgroundColor: 'blue'
-  },
 
+  separatorV:{
+    height: 50,
+    width: 1,
+    borderWidth: 1,
+    borderColor: '#eee'
+  },
 
   actionText: {
     color: '#fff',
