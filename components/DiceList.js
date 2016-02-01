@@ -39,7 +39,7 @@ class DiceList extends Component {
 			<View style={styles.diceList}>
 				<ScrollView 
 					horizontal={true}
-					style={styles.diceScrollView}
+					style={styles.diceListScroll}
 					ref={(c) => this.scrollView = c}>
 					{this.state.items.map(this._renderDie, this)}
 				</ScrollView>
@@ -58,7 +58,8 @@ class DiceList extends Component {
                 result.push(this._renderDie(val,ind));                
             }, this);
             
-            result.push(<View style={styles.separatorV}></View>);
+            if(index !== this.state.items.length - 1)
+	            result.push(<View style={styles.separatorV}/>);
             
             return result;
 		}

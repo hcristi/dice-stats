@@ -7,7 +7,7 @@ import React, {
   AppRegistry,
   Component,
   StyleSheet,
-  Text,
+  Text, 
   View,
   ToastAndroid
 } from 'react-native';
@@ -42,8 +42,9 @@ class DiceStats extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <DiceList items={this.state.historyItems} updatable={true}></DiceList>
         <UserInfo></UserInfo>
+        <DiceList items={this.state.historyItems} updatable={true}></DiceList>
+        <View style={{flex:1}}/>
         <UserActions pushRoll={this._pushRoll.bind(this)}></UserActions>
 
       </View>

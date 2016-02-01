@@ -33,14 +33,23 @@ class UserActions extends Component{
 	        			updatable={true}
 	        				>
 	   				</DiceList>
-	   				<TouchableHighlight
-						style={[styles.action, styles.actionSuccess]}
-						onPress={this._acceptRoll.bind(this)}>
-						<Text style={styles.actionText}>
-							Accept Roll
-						</Text>
-					</TouchableHighlight>
-	        		<DiceList 
+	   				<View style={styles.userActionsButtons}>
+	   					<TouchableHighlight
+							style={[styles.action, styles.actionCancel, styles.userActionsCancel]}
+							onPress={this._closeRoll.bind(this)}>
+							<Text style={styles.actionText}>
+								Cancel
+							</Text>
+						</TouchableHighlight>
+		        		<TouchableHighlight
+							style={[styles.action, styles.actionSuccess, styles.userActionsAccept]}
+							onPress={this._acceptRoll.bind(this)}>
+							<Text style={styles.actionText}>
+								Accept Roll
+							</Text>
+						</TouchableHighlight>
+	   				</View>
+	   				<DiceList 
 	        			items={this.dice} 
 	        			onDiePress={this._pushDie.bind(this)}
 	        			updatable={false}
@@ -86,6 +95,10 @@ class UserActions extends Component{
         if(this.state.currentRoll.length > 0)
 		  this.props.pushRoll(this.state.currentRoll);
 
+		this._closeRoll();
+	}
+
+	_closeRoll(){
 		this.setState({
 			newRoll: false,
 			currentRoll: []

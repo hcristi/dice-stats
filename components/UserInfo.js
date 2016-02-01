@@ -8,12 +8,11 @@ const styles = require('../styles.js');
 
 class UserInfo extends Component{
 	render() {
-		return (
+		return ( 
 			<View style={styles.userInfo}>
-				<Text >
-					Cristi
-				</Text>
-			</View>);
+				<Text style={styles.userInfoName}>Cristi</Text>
+			</View>
+			);
 	}
 }
 
