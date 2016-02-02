@@ -15,7 +15,14 @@ import DiceList from './DiceList.js'
 class UserActions extends Component{
 	constructor(props) {
 		super(props);
-		this.dice = [1, 2, 3, 4, 5, 6];
+
+		this.dice = [];
+		this.currentRollIndex = 0;
+
+		for(let i = 1; i <= 6; i++){
+			this.dice.push({ id: i, value: i });
+		}
+
 		this.state = {
 			newRoll: false,
 			currentRoll: []
@@ -78,14 +85,20 @@ class UserActions extends Component{
 	}
 
 	_pushDie(itemPressed) {
-		this.state.currentRoll.push(itemPressed);
+		let item = {};
+		Object.assign(item, itemPressed, { id: this.currentRollIndex++ });
+
+		this.state.currentRoll.push(item);
 		this.setState({
 			currentRoll: this.state.currentRoll
 		});
 	}
 
-    _removeDie(itemPressed, indexOfItem){
-        this.state.currentRoll.splice(indexOfItem, 1);
+    _removeDie(itemPressed){
+		let ind = this.state.currentRoll.findIndex(el => el.id === itemPressed.id);
+
+		ind >=0 && this.state.currentRoll.splice(ind, 1);
+
         this.setState({
 			currentRoll: this.state.currentRoll
 		});
@@ -103,6 +116,7 @@ class UserActions extends Component{
 			newRoll: false,
 			currentRoll: []
 		});
+		this.currentRollIndex = 0;
 	}
 }
 

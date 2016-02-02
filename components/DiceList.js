@@ -13,11 +13,10 @@ class DiceList extends Component {
 		this.state = {
 			items: props.items || []
 		};
-		this.dieIndex = '';
+		this.rollIndex = 0;
 	};
 
 	componentWillReceiveProps(nextProps) {
-		this.dieIndex = '0';
 		this.setState({
 			items: nextProps.items || []
 		});
@@ -48,23 +47,20 @@ class DiceList extends Component {
 	}
 
 	_renderDie(item, index) {
-		let key = this.dieIndex + '.' + index;
         let result = [];
         
 		if(item.constructor === Array){
-            this.dieIndex = index;
-			
             item.map((val, ind) => {
                 result.push(this._renderDie(val,ind));                
             }, this);
             
             if(index !== this.state.items.length - 1)
 	            result.push(<View style={styles.separatorV}/>);
-            
+
             return result;
 		}
 		return(
-			<DieButton key={key} number={item} index={index} onPress={this.props.onDiePress}></DieButton>
+			<DieButton key={item.id} item={item} onPress={this.props.onDiePress}></DieButton>
 			);
 	}
 }

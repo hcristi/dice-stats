@@ -14,14 +14,14 @@ class DieButton extends Component{
 
 	render() {
 		return (
-			<TouchableHighlight onPress={() => this.props.onPress(this.props.number, this.props.index)} >
+			<TouchableHighlight onPress={() => this.props.onPress(this.props.item)} >
 				<Image source={this.getImg()} style={styles.diceListDie}/>
 			</TouchableHighlight>
 			);
 	}
 
 	getImg() {
-		switch(this.props.number){
+		switch(this.props.item.value){
 			case 1:
 				return require ('./img/d1.png');
 			case 2:
