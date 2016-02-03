@@ -15,6 +15,7 @@ import React, {
 import DiceList from './components/DiceList.js'
 import UserInfo from './components/UserInfo.js';
 import UserActions from './components/UserActions.js';
+import CustomChart from './components/CustomChart.js';
 
 const styles = require('./styles.js');
 
@@ -29,7 +30,8 @@ class DiceStats extends Component {
 
   componentDidMount() {
     this.state = {
-      historyItems: []
+      historyItems: [],
+      sparseItems: []
     };
   }
 
@@ -37,8 +39,10 @@ class DiceStats extends Component {
     return (
       <View style={styles.container}>
         <UserInfo></UserInfo>
-        <DiceList items={this.state.historyItems} updatable={true} onDiePress={this._removeFromHistory.bind(this)}></DiceList>
-        <View style={{flex:1}}/>
+        <DiceList items={this.state.historyItems} updatable={true} 
+            onDiePress={this._removeFromHistory.bind(this)}></DiceList>
+        <CustomChart style={{flex:1}} data={this.state.sparseItems} a={22}/>
+        <CustomChart style={{flex:1}} data={this.state.sparseItems}/>
         <UserActions pushRoll={this._pushRoll.bind(this)}></UserActions>
 
       </View>
@@ -46,11 +50,16 @@ class DiceStats extends Component {
   }
 
   _pushRoll(roll){
-    roll.forEach(item => item.id = this.historyIndex++);
+    roll.forEach(
+      item => {
+        item.id = this.historyIndex++;
+        this.state.sparseItems.push(item);
+      });
     
     this.state.historyItems.push(roll);
     this.setState({
-      historyItems : this.state.historyItems
+      historyItems : this.state.historyItems,
+      sparseItems: this.state.sparseItems
     });
   }
 
