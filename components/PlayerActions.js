@@ -12,7 +12,7 @@ const DieButton = require('./DieButton.js');
 import CurrentRoll from './CurrentRoll.js';
 import DiceList from './DiceList.js'
 
-class UserActions extends Component{
+export default class PlayerActions extends Component{
 	constructor(props) {
 		super(props);
 
@@ -119,5 +119,3 @@ class UserActions extends Component{
 		this.currentRollIndex = 0;
 	}
 }
-
-module.exports = UserActions;

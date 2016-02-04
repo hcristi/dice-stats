@@ -6,7 +6,7 @@ from 'react-native';
 
 const styles = require('../styles.js');
 
-class UserInfo extends Component{
+export default class PlayerInfo extends Component{
 	render() {
 		return ( 
 			<View style={styles.userInfo}>
@@ -15,5 +15,3 @@ class UserInfo extends Component{
 			);
 	}
 }
-
-module.exports = UserInfo;
