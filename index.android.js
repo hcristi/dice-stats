@@ -14,6 +14,7 @@ import React, {
 } from 'react-native'
 
 import Player from './components/Player.js'
+import PlayerActions from './components/PlayerActions.js'
 
 class DiceStats extends Component {
     static NavigationBarRouteMapper = {
@@ -26,7 +27,8 @@ class DiceStats extends Component {
                 null;
         },
         Title: (route, navigator, index, navState) => {
-            return null;
+            return 
+                null;
             return (
                 <Text>{route.name}</Text>       
             );
@@ -36,7 +38,7 @@ class DiceStats extends Component {
     render() {
         return (
             <Navigator
-                initialRoute={{name: 'Player', component: Player}}
+                initialRoute={{name: 'Player', component: PlayerActions}}
                 renderScene={this._renderScene}
                 navigationBar={
                     <Navigator.NavigationBar

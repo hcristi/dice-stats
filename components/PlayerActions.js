@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {
-	Component, View, ScrollView, Text, Image, TouchableHighlight 
+	Component, View, ScrollView, Text, Image, Platform, TouchableHighlight, TouchableNativeFeedback
 }
 from 'react-native';
 
@@ -30,52 +30,37 @@ export default class PlayerActions extends Component{
 	};
 
 	render() {
-		if(this.state.newRoll)
-			return (
-				<View >
-					<Text>Current Roll:</Text>
-					<DiceList 
-	        			items={this.state.currentRoll} 
-	        			onDiePress={this._removeDie.bind(this)}
-	        			updatable={true}
-	        				>
-	   				</DiceList>
-	   				<View style={styles.userActionsButtons}>
-	   					<TouchableHighlight
-							style={[styles.action, styles.actionCancel, styles.userActionsCancel]}
-							onPress={this._closeRoll.bind(this)}>
-							<Text style={styles.actionText}>
-								Cancel
-							</Text>
-						</TouchableHighlight>
-		        		<TouchableHighlight
-							style={[styles.action, styles.actionSuccess, styles.userActionsAccept]}
-							onPress={this._acceptRoll.bind(this)}>
-							<Text style={styles.actionText}>
-								Accept Roll
-							</Text>
-						</TouchableHighlight>
-	   				</View>
-	   				<DiceList 
-	        			items={this.dice} 
-	        			onDiePress={this._pushDie.bind(this)}
-	        			updatable={false}
-	        				>
-	   				</DiceList>
-				</View>
-			);
-
-		return(
-			<View>
-				<TouchableHighlight  
-					style={[styles.action, styles.actionSuccess]}
-					onPress={this._newRoll.bind(this)}>
-					<Text style={styles.actionText}>
-						New Roll 
-					</Text>
-				</TouchableHighlight>
-			</View>
-			);
+        let TouchableElement = TouchableHighlight;
+        // if (Platform.OS === 'android') {
+        //     TouchableElement = TouchableNativeFeedback;
+        // }
+        return (
+            <View style={{flex:1}}>
+                <Text>Current Roll:</Text>
+                <DiceList 
+                    items={this.state.currentRoll} 
+                    onDiePress={this._removeDie.bind(this)}
+                    updatable={true}
+                        >
+                </DiceList>
+                <View style={styles.userActionsButtons}>
+                    <View style={styles.userActionButtonsRow}>
+                        <TouchableElement style={styles.userActionsButton}>
+                            <Image source={ require('./img/d1.png')} style={styles.userActionButtonImage} />     
+                        </TouchableElement>
+                        <TouchableElement style={styles.userActionsButton}>
+                            <Image source={ require('./img/d1.png')} style={styles.userActionButtonImage} />     
+                        </TouchableElement>
+                    </View>
+                </View>   
+                <TouchableElement style={[styles.action, styles.actionSuccess]}>
+                    <Text style={styles.actionText}>
+                        Done
+                    </Text>
+                </TouchableElement>
+                    
+            </View>
+        );
 	}
 
 	_newRoll() {
