@@ -1,16 +1,22 @@
 'use strict';
 
 import React, {
-	Component, View, ScrollView, Text, Image, Platform, TouchableHighlight, TouchableNativeFeedback
+	Component, 
+    View, 
+    ScrollView, 
+    Text, 
+    Image, 
+    Platform, 
+    TouchableHighlight, 
+    TouchableNativeFeedback
 }
 from 'react-native';
 
-const styles = require('../styles.js');
-
-const DieButton = require('./DieButton.js');
+import styles from '../styles.js';
 
 import CurrentRoll from './CurrentRoll.js';
 import DiceList from './DiceList.js'
+import DieButton from './DieButton.js';
 
 export default class PlayerActions extends Component{
 	constructor(props) {
@@ -19,8 +25,14 @@ export default class PlayerActions extends Component{
 		this.dice = [];
 		this.currentRollIndex = 0;
 
+        let rowNr = 0;
+        this.dice[rowNr] = [];
 		for(let i = 1; i <= 6; i++){
-			this.dice.push({ id: i, value: i });
+			this.dice[rowNr].push({ id: i, value: i });
+            if(i % 2 == 0 && rowNr < 2){
+                rowNr ++;
+                this.dice[rowNr] = [];
+            }
 		}
 
 		this.state = {
@@ -41,19 +53,27 @@ export default class PlayerActions extends Component{
                     items={this.state.currentRoll} 
                     onDiePress={this._removeDie.bind(this)}
                     updatable={true}
-                        >
-                </DiceList>
+                        />
                 <View style={styles.userActionsButtons}>
-                    <View style={styles.userActionButtonsRow}>
-                        <TouchableElement style={styles.userActionsButton}>
-                            <Image source={ require('./img/d1.png')} style={styles.userActionButtonImage} />     
-                        </TouchableElement>
-                        <TouchableElement style={styles.userActionsButton}>
-                            <Image source={ require('./img/d1.png')} style={styles.userActionButtonImage} />     
-                        </TouchableElement>
-                    </View>
+                    {this.dice.map((items, index) => {
+                        return (
+                        <View key={index} style={styles.userActionsButtonsRow}>
+                            {items.map((item) => {
+                                return (
+                                <DieButton 
+                                    key={item.id} item={item} 
+                                    style={styles.userActionsButton}
+                                    contentStyle={styles.userActionsButtonImage}
+                                    onPress={this._pushDie.bind(this)}/>
+                                );
+                            })}
+                        </View>
+                        );
+                    })}
                 </View>   
-                <TouchableElement style={[styles.action, styles.actionSuccess]}>
+                <TouchableElement 
+                    style={[styles.action, styles.actionSuccess]}
+                    onPress={this._acceptRoll.bind(this)}>
                     <Text style={styles.actionText}>
                         Done
                     </Text>
@@ -90,6 +110,10 @@ export default class PlayerActions extends Component{
     }
 
 	_acceptRoll() {
+        this.props.route.callback(this.state.currentRoll);
+        this.props.navigator.pop();
+        return;
+        
         if(this.state.currentRoll.length > 0)
 		  this.props.pushRoll(this.state.currentRoll);
 

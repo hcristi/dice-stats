@@ -5,7 +5,8 @@ import React, {
 }
 from 'react-native';
 
-const constants = require('./constants.js');
+import constants from './constants.js';
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -32,20 +33,24 @@ const styles = StyleSheet.create({
     userActionsButtons: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-around',
+        // justifyContent: 'space-around',
+        // alignItems: 'center'
     },
-    userActionButtonsRow: {
+    userActionsButtonsRow: {
         flex:1,
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginBottom: 5
-    
+        // justifyContent: 'space-around'
     },
-    userActionButton: {
+    userActionsButton: {
         flex: 1,
+        backgroundColor: '#fff',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',   
     },  
-    userActionButtonImage:{
-         resizeMode: 'cover'
+    userActionsButtonImage:{
+        width: 150,
+        height: 150,
     },
     
     userActionsAccept: {

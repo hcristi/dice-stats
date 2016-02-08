@@ -4,7 +4,7 @@ import React, {
 }
 from 'react-native';
 
-const styles = require('../styles.js');
+import styles from '../styles.js';
 
 export default class PlayerInfo extends Component{
 	render() {

@@ -4,9 +4,8 @@ import React, {
 }
 from 'react-native';
 
-const styles = require('../styles.js');
-const DieButton = require('./DieButton.js');
-
+import styles from '../styles.js';
+import DieButton from './DieButton';
 class DiceList extends Component {
 	constructor(props) {
 		super(props);
@@ -60,7 +59,10 @@ class DiceList extends Component {
             return result;
 		}
 		return(
-			<DieButton key={item.id} item={item} onPress={this.props.onDiePress}></DieButton>
+			<DieButton 
+                key={item.id} item={item} 
+                contentStyle={styles.diceListDie}
+                onPress={this.props.onDiePress}/>
 			);
 	}
 }

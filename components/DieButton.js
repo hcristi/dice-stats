@@ -1,27 +1,42 @@
 'use strict';
 
 import React, {
-	Component, Image, TouchableHighlight 
+	View, Component, Image, TouchableHighlight 
 }
 from 'react-native';
 
-const styles = require('../styles.js');
+import styles from '../styles.js';
 
-class DieButton extends Component{
+export default class DieButton extends Component{
+    static get propTypes() {
+		return {
+			style: View.propTypes.style,
+            contentStyle: Image.propTypes.style
+		};
+	}
 	constructor(props) {
 		super(props);
 	};
 
 	render() {
+        let TouchableElement = TouchableHighlight;
+        // if (Platform.OS === 'android') {
+        //     TouchableElement = TouchableNativeFeedback;
+        // }
+        
 		return (
-			<TouchableHighlight onPress={() => this.props.onPress(this.props.item)} >
-				<Image source={this.getImg()} style={styles.diceListDie}/>
-			</TouchableHighlight>
+			<TouchableElement
+                style={this.props.style} 
+                onPress={() => this.props.onPress(this.props.item)} >
+				<Image 
+                    style={this.props.contentStyle}
+                    source={DieButton.GetImg(this.props.item.value)} />
+			</TouchableElement>
 			);
 	}
 
-	getImg() {
-		switch(this.props.item.value){
+	static GetImg(number) {
+		switch(number){
 			case 1:
 				return require ('./img/d1.png');
 			case 2:
@@ -37,5 +52,3 @@ class DieButton extends Component{
 			}
 	}
 }
-
-module.exports = DieButton;
