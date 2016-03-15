@@ -29,7 +29,7 @@ class DiceList extends Component {
 	}
 
 	componentDidUpdate() {
-		this.scrollView.refs.InnerScrollView.measure((x,y,w,h) => this.scrollView.scrollTo(h,w));
+		this.scrollView.refs.InnerScrollView.measure((x,y,w,h) => this.scrollView.scrollTo({x:h,y:w, animated:true}));
 	}
 
 	render() {
